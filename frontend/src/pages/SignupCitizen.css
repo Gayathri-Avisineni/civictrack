@@ -1,0 +1,161 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", sans-serif;
+}
+
+/* Page Background */
+.citizen-wrapper{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-image:url("../photos/login.jpeg"); /* Use your civic-themed background */
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  padding:20px;
+}
+
+/* Card */
+.citizen-card{
+  width:400px;
+  background:white;
+  padding:40px 30px;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  animation:fadeIn 0.7s ease;
+}
+
+.citizen-brand{
+  text-align:center;
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:5px;
+}
+
+.citizen-subtitle{
+  text-align:center;
+  font-size:14px;
+  color:gray;
+  margin-bottom:30px;
+}
+
+/* Input Fields */
+.citizen-field{
+  position:relative;
+  margin-bottom:25px;
+}
+
+.citizen-field input{
+  width:100%;
+  padding:12px 10px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:15px;
+  outline:none;
+  transition:0.3s;
+}
+
+.citizen-field input:focus{
+  border-color:#1e40af;
+}
+
+.citizen-field label{
+  position:absolute;
+  left:10px;
+  top:12px;
+  color:gray;
+  font-size:14px;
+  background:white;
+  padding:0 4px;
+  transition:0.3s;
+}
+
+.citizen-field input:focus + label,
+.citizen-field input:valid + label{
+  top:-8px;
+  font-size:12px;
+  color:#1e3a8a;
+}
+
+/* Password toggle */
+.citizen-password-field{
+  position:relative;
+}
+
+.citizen-toggle{
+  position:absolute;
+  right:10px;
+  top:12px;
+  cursor:pointer;
+  font-size:18px;
+  color:#555;
+}
+
+/* Button */
+.citizen-signup-btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  background:#1e3a8a;
+  color:white;
+  font-size:16px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.3s;
+  margin-top:10px;
+}
+
+.citizen-signup-btn:hover{
+  background:#274fd3;
+}
+
+/* Register text */
+.citizen-register-text{
+  text-align:center;
+  font-size:13px;
+  color:gray;
+  margin-top:20px;
+}
+
+.citizen-register-text a{
+  color:#1e3a8a;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.citizen-register-text a:hover{
+  text-decoration:underline;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Responsive */
+@media(max-width:480px){
+  .citizen-card{
+    width:90%;
+    padding:30px;
+  }
+
+  .citizen-brand{
+    font-size:24px;
+  }
+}

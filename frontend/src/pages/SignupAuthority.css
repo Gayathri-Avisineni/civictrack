@@ -1,0 +1,233 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.authority-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../photos/login.jpeg");
+  background-size: cover;
+  background-position: center;
+  padding: 30px;
+}
+
+.authority-card {
+  width: 900px;
+  max-width: 95%;
+  background: white;
+  padding: 35px 30px;
+  border-radius: 15px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.7s ease;
+}
+
+/* Header */
+.authority-brand {
+  text-align: center;
+  font-size: 28px;
+  color: #008000;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.authority-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+/* Form */
+.authority-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.authority-form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.authority-form-row .authority-field {
+  flex: 1;
+}
+
+.authority-field.full-width {
+  width: 100%;
+}
+
+.authority-field {
+  position: relative;
+}
+
+.authority-field input,
+.authority-field select {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.authority-field input:focus,
+.authority-field select:focus {
+  border-color: #008000;
+  box-shadow: 0 0 4px rgba(0, 128, 0, 0.3);
+}
+
+.authority-field label {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: gray;
+  font-size: 13px;
+  background: white;
+  padding: 0 4px;
+  transition: 0.3s;
+}
+
+.authority-field input:focus + label,
+.authority-field input:valid + label,
+.authority-field select:focus + label,
+.authority-field select:valid + label {
+  top: -7px;
+  font-size: 11px;
+  color: #008000;
+}
+
+/* Password Toggle */
+.authority-password-field {
+  position: relative;
+}
+
+.authority-toggle {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+}
+
+.authority-toggle:hover {
+  color: #008000;
+}
+
+.upload-field {
+  grid-column: span 2;
+}
+
+.upload-box {
+  display: block;
+  border: 2px dashed #4CAF50;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f9fff9;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-box:hover {
+  background-color: #eefbee;
+  border-color: #2e7d32;
+}
+
+.upload-box input {
+  display: none;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.upload-icon {
+  font-size: 28px;
+}
+
+.upload-text {
+  font-size: 14px;
+}
+
+.file-name {
+  font-size: 12px;
+  color: #4CAF50;
+  font-weight: 600;
+}
+/* Submit Button */
+.authority-signup-btn {
+  grid-column: span 2;
+  padding: 12px;
+  border: none;
+  background: #008000;
+  color: white;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.authority-signup-btn:hover {
+  background: #006400;
+  transform: translateY(-2px);
+}
+
+/* Login Link */
+.authority-register-text {
+  text-align: center;
+  font-size: 13px;
+  color: gray;
+  margin-top: 10px;
+}
+
+.authority-register-text a {
+  color: #008000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.authority-register-text a:hover {
+  text-decoration: underline;
+}
+
+.success-message{
+  background:#e6ffed;
+  color:#1a7f37;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:15px;
+  text-align:center;
+  font-weight:500;
+}
+
+/* Fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+  .authority-card {
+    width: 100%;
+    padding: 25px;
+  }
+
+  .authority-form-row {
+    flex-direction: column;
+  }
+}
+
