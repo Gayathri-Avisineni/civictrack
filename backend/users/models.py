@@ -8,6 +8,10 @@ class Citizen(models.Model):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=128)
 
+    is_online = models.BooleanField(default=False)
+    last_login = models.DateTimeField(null=True, blank=True)
+    last_logout = models.DateTimeField(null=True, blank=True)
+
     def __str__(self):
         return self.username
 
@@ -82,6 +86,12 @@ class Authority(models.Model):
     office_address = models.TextField()
     document = models.FileField(upload_to="authority_docs/")
     password = models.CharField(max_length=128)
+
+    is_online = models.BooleanField(default=False)
+    last_login = models.DateTimeField(null=True, blank=True)
+    last_logout = models.DateTimeField(null=True, blank=True)
+
+    
 
     def __str__(self):
         return self.username

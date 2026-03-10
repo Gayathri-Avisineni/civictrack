@@ -54,21 +54,23 @@ function SignupCitizen() {
       formData
     );
 
-    alert("Signup successful!");
+  
 
     const loginResponse = await axios.post(
   "http://127.0.0.1:8000/api/citizen/login/",
   {
-    email: formData.email,
+    login: formData.email,
     password: formData.password
   }
 );
 
 // user data store
 localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
+localStorage.setItem("role", loginResponse.data.role);
+localStorage.setItem("username", loginResponse.data.user.username);
 
 // redirect to dashboard
-window.location.href = "/dashboard";
+window.location.href = "/home";
 
   } catch (error) {
 

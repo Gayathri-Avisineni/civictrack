@@ -10,6 +10,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+  
   const handleLogin = async (e) => {
   e.preventDefault();
 
@@ -29,13 +30,11 @@ function Login() {
     localStorage.setItem("role", response.data.role);
     localStorage.setItem("username", response.data.user.username);
 
-    alert("Login successful");
-
     
     const role = response.data.role;
 
     if (role === "citizen") {
-      window.location.href = "/citizen-dashboard";
+      window.location.href = "/home";
     } 
     else if (role === "authority") {
       window.location.href = "/authority-dashboard";
@@ -89,7 +88,7 @@ function Login() {
           </div>
 
           <div className="options">
-            <a href="#" className="forgot">Forgot password?</a>
+            <a href="/forget-password" className="forgot">Forgot password?</a>
           </div>
 
           <button className="login-btn">Login</button>

@@ -2,8 +2,19 @@ from django.contrib import admin
 from .models import Citizen, Authority, AuthorityRequest
 from django.utils.html import format_html
 # Register your models here.
-admin.site.register(Citizen)
-admin.site.register(Authority)
+
+# -------- Citizen Admin --------
+@admin.register(Citizen)
+class CitizenAdmin(admin.ModelAdmin):
+
+    list_display = ("username","email","is_online","last_login","last_logout")
+
+
+# -------- Authority Admin --------
+@admin.register(Authority)
+class AuthorityAdmin(admin.ModelAdmin):
+
+    list_display = ("username","department","is_online","last_login","last_logout")
 
 
 @admin.register(AuthorityRequest)
