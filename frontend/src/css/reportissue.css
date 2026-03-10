@@ -1,0 +1,96 @@
+.page{
+
+display:flex;
+justify-content:center;
+padding:40px;
+background:url('../assests/resul-mentes-DbwYNr8RPbg-unsplash.jpg');
+
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+
+}
+
+
+.form-container{
+
+width:700px;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+
+}
+
+.form-header{
+
+text-align:center;
+margin-bottom:25px;
+
+}
+
+.section{
+
+margin-bottom:25px;
+
+}
+
+.section h2{
+
+margin-bottom:10px;
+
+}
+
+input, select, textarea{
+
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border:1px solid #ccc;
+border-radius:5px;
+font-size:14px;
+
+}
+
+.location-box{
+
+background:#eef5ff;
+padding:10px;
+border-radius:6px;
+margin-top:10px;
+
+}
+
+.submit-btn{
+
+width:100%;
+padding:12px;
+background:#0077ff;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+
+}
+input:focus,
+select:focus,
+textarea:focus{
+
+outline:none;
+
+border-color:#5c73ff;
+
+box-shadow:0 0 6px rgba(92,115,255,0.4);
+
+}
+
+.submit-btn:hover{
+
+background:#005edb;
+transform:scale(1.02);
+
+}
+.area{
+    width: 50%;
+}

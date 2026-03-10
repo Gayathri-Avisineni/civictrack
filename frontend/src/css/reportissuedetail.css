@@ -1,0 +1,230 @@
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:Arial, Helvetica, sans-serif;
+
+}
+
+.issue-page{
+
+min-height:100vh;
+
+background:url('../assests/iklas-eqL82KY9DJE-unsplash.jpg');
+
+padding:40px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+
+}
+
+/* Main container */
+
+.issue-container{
+
+display:grid;
+
+grid-template-columns:2fr 1fr;
+
+gap:25px;
+
+max-width:1200px;
+
+width:100%;
+
+background:white;
+
+padding:30px;
+
+border-radius:10px;
+
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+
+}
+
+/* Left side */
+
+.issue-left h1{
+
+margin-bottom:10px;
+
+color:#1f2937;
+
+}
+
+.issue-info{
+
+display:flex;
+
+gap:20px;
+
+margin-bottom:20px;
+
+}
+
+.status{
+
+background:#facc15;
+
+padding:5px 12px;
+
+border-radius:5px;
+
+font-weight:bold;
+
+}
+
+.date{
+
+color:#555;
+
+}
+
+/* Photos */
+
+.photos img{
+
+width:100%;
+
+border-radius:8px;
+
+margin-bottom:10px;
+
+}
+
+.photo-row{
+
+display:flex;
+
+gap:10px;
+
+}
+
+.photo-row img{
+
+width:50%;
+
+}
+
+/* Updates */
+
+.updates{
+
+margin-top:25px;
+
+}
+
+.update-card{
+
+background:#f3f4f6;
+
+padding:15px;
+
+border-radius:8px;
+
+margin-top:10px;
+
+}
+
+/* Right side cards */
+
+.issue-right .card{
+
+background:#f9fafb;
+
+padding:20px;
+
+border-radius:8px;
+
+margin-bottom:20px;
+
+}
+
+/* Map */
+
+.map-container{
+
+margin-top:15px;
+
+border-radius:8px;
+
+overflow:hidden;
+
+}
+
+.map-container img{
+
+width:100%;
+
+height:200px;
+
+object-fit:cover;
+
+}
+
+/* Authority */
+
+.authority img{
+
+width:70px;
+
+border-radius:50%;
+
+margin:10px 0;
+
+}
+
+.exp{
+
+font-size:13px;
+
+color:#555;
+
+margin-top:10px;
+
+}
+
+/* Problem description */
+
+.problem p{
+
+line-height:1.5;
+
+color:#444;
+
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.issue-container{
+
+grid-template-columns:1fr;
+
+}
+
+.photo-row{
+
+flex-direction:column;
+
+}
+
+.photo-row img{
+
+width:100%;
+
+}
+
+}
