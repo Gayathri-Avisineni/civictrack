@@ -1,0 +1,118 @@
+.page{
+
+display:flex;
+justify-content:center;
+padding:40px;
+background:url('../assets/resul-mentes-DbwYNr8RPbg-unsplash.jpg');
+
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+
+}
+
+
+.form-container{
+
+width:700px;
+background:rgba(255,255,255,0.96);
+padding:35px;
+border-radius:12px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+
+backdrop-filter:blur(6px);
+
+}
+
+.form-header{
+
+text-align:center;
+color:#1b3c59;
+margin-bottom:25px;
+
+}
+
+.form-header p{
+
+color:#6b7a89;
+font-size:14px;
+
+}
+
+.section{
+
+margin-bottom:25px;
+
+}
+
+.section h2{
+margin-bottom:10px;
+font-size:20px;
+color:#1f4f7a;
+
+border-left:4px solid #0077ff;
+padding-left:10px;
+}
+
+input, select, textarea{
+
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border:1px solid #ccc;
+border-radius:5px;
+font-size:14px;
+background:#f9fbfd;
+
+transition:all 0.2s ease;
+
+}
+
+
+
+.location-box{
+
+background:#eef5ff;
+padding:10px;
+border-radius:6px;
+margin-top:10px;
+
+}
+
+.submit-btn{
+width:100%;
+padding:14px;
+background:linear-gradient(135deg,#0077ff,#005edb);
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:all 0.2s ease;
+margin-top:10px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+outline:none;
+
+border-color:#5c73ff;
+
+box-shadow:0 0 6px rgba(92,115,255,0.4);
+
+}
+
+.submit-btn:hover{
+background:linear-gradient(135deg,#005edb,#0043a8);
+transform:scale(1.03);
+box-shadow:0 6px 14px rgba(0,0,0,0.2);
+
+}
+
+.area{
+    width: 50%;
+}

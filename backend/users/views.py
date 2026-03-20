@@ -1,17 +1,19 @@
 from django.shortcuts import render
 
 # Create your views here.
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Citizen, Authority, AuthorityRequest
-from .serializers import CitizenSerializer, AuthoritySerializer
+from .models import Category, Citizen, Authority, AuthorityRequest
+from .serializers import CategorySerializer, CitizenSerializer, AuthoritySerializer, AuthorityRequestSerializer
 from rest_framework import status
 from django.contrib.auth.hashers import check_password
 
 from django.db.models import Q
-from .serializers import AuthorityRequestSerializer
 from django.utils import timezone
-
+from rest_framework.generics import ListAPIView
+from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 @api_view(['POST'])
@@ -43,9 +45,12 @@ def login_user(request):
             citizen.last_login = timezone.now()
             citizen.save()
 
+            refresh = RefreshToken.for_user(citizen)
+
             return Response({
                 "message": "Citizen login successful",
                 "role": "citizen",
+                "access": str(refresh.access_token),
                 "user": {
                     "id": citizen.id,
                     "username": citizen.username,
@@ -66,9 +71,13 @@ def login_user(request):
             authority.last_login = timezone.now()
             authority.save()
 
+            
+            refresh = RefreshToken.for_user(authority)
+
             return Response({
                 "message": "Authority login successful",
                 "role": "authority",
+                "access": str(refresh.access_token),
                 "user": {
                     "id": authority.id,
                     "username": authority.username,
@@ -142,3 +151,9 @@ def logout_user(request):
 
     return Response({"message": "User not found"}, status=404)
 
+
+
+
+class CategoryListView(ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

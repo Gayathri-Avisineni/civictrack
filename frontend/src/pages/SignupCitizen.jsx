@@ -92,23 +92,25 @@ window.location.href = "/home";
           {/* Full Name */}
           <div className="citizen-field">
             <input 
+              id="citizen-fullname"
               type="text"
               name="full_name"
               required
               onChange={handleChange}
             />
-            <label>Full Name</label>
+            <label htmlFor="citizen-fullname">Full Name</label>
           </div>
 
           {/* Email */}
           <div className="citizen-field">
             <input 
+              id="citizen-email"
               type="email"
               name="email"
               required
               onChange={handleChange}
             />
-            <label>Email</label>
+            <label htmlFor="citizen-email">Email</label>
 
             {errors.email && <p className="error">{errors.email[0]}</p>}
           </div>
@@ -116,35 +118,38 @@ window.location.href = "/home";
           {/* Phone */}
           <div className="citizen-field">
             <input 
+              id="citizen-phone"
               type="tel"
               name="phone"
               required
               onChange={handleChange}
             />
-            <label>Phone Number</label>
+            <label htmlFor="citizen-phone">Phone Number</label>
           </div>
 
           {/* Username */}
           <div className="citizen-field">
             <input 
+              id="citizen-username"
               type="text"
               name="username"
               required
               onChange={handleChange}
             />
-            <label>Username</label>
+            <label htmlFor="citizen-username">Username</label>
             {errors.username && <p className="error">{errors.username[0]}</p>}
           </div>
 
           {/* Password */}
           <div className="citizen-field password-field">
             <input 
+              id="citizen-password"
               type={showPassword ? "text" : "password"}
               name="password"
               required
               onChange={handleChange}
             />
-            <label>Password</label>
+            <label htmlFor="citizen-password">Password</label>
             {errors.password && <p className="error">{errors.password}</p>}
             <span className="toggle" onClick={togglePassword}>
               {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
@@ -154,11 +159,12 @@ window.location.href = "/home";
           {/* Confirm Password */}
           <div className="citizen-field password-field">
             <input 
+              id="citizen-confirmpassword"
               type={showConfirm ? "text" : "password"}
               required
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <label>Confirm Password</label>
+            <label htmlFor="citizen-confirmpassword">Confirm Password</label>
             {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
             <span className="citizen-toggle" onClick={toggleConfirm}>
               {showConfirm ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}

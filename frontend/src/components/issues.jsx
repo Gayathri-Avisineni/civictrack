@@ -1,31 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./issues.css";
 
 function Issues() {
+
+  const navigate = useNavigate();
+  const [issues, setIssues] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/issues/")
+      .then(res => {
+        setIssues(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
   
+
+  const getTimeAgo = (time) => {
+    const diff = Math.floor((new Date() - new Date(time)) / 60000);
+
+    if (diff < 60) return `${diff} mins ago`;
+    if (diff < 1440) return `${Math.floor(diff / 60)} hrs ago`;
+
+    return `${Math.floor(diff / 1440)} days ago`;
+  };
+
   return (
+    
     <div className="issues">
 
       <h2>Recent Issues Reported</h2>
 
       <div className="issue-cards">
 
-        <div className="card">
-          <img src="https://images.unsplash.com/photo-1597764699513-8b3f1e3b6f5e" alt="" />
-          <h3>Pothole on Main Street</h3>
-          <p>Location : 4 minutes ago</p>
-        </div>
 
-        <div className="card">
-          <img src="https://images.unsplash.com/photo-1563720223185-11003d516935" alt="" />
-          <h3>Broken Streetlamp</h3>
-          <p>Oak Avenue, Ward 3</p>
-        </div>
+        {issues.map((issue) => (
+          <div className="card" key={issue.id}
+          onClick={() => navigate(`/issue/${issue.id}`)}
+          style={{ cursor: "pointer" }}
 
-        <div className="card">
-          <img src="https://images.unsplash.com/photo-1581579188871-45ea61f2a5ac" alt="" />
-          <h3>Garbage Overflow</h3>
-          <p>Status : Resolved</p>
-        </div>
+          >
+
+            <img 
+              src={issue.photo}
+              alt="issue" 
+            />
+
+            <div className="card-body">
+
+              <div>
+                <h3>{issue.title}</h3>
+                <p className="address">{issue.address}</p>
+              </div>
+
+              <div className="bottom-row">
+                <p className="time">{getTimeAgo(issue.created_at)}</p>
+
+                <span className={`status ${issue.status}`}>
+                  {issue.status}
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+        ))}
 
       </div>
 

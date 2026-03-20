@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
 
@@ -9,6 +10,10 @@ function Login() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from || "/home";
 
   
   const handleLogin = async (e) => {
@@ -24,20 +29,24 @@ function Login() {
         password: password
       }
     );
+    console.log(response.data);   
 
     // store user
     localStorage.setItem("user", JSON.stringify(response.data.user));
     localStorage.setItem("role", response.data.role);
     localStorage.setItem("username", response.data.user.username);
 
+    console.log("TOKEN:", response.data.access);
+    localStorage.setItem("token", response.data.access);
+    console.log("STORED:", localStorage.getItem("token"));
     
     const role = response.data.role;
 
     if (role === "citizen") {
-      window.location.href = "/home";
+      navigate(from, { replace: true });
     } 
     else if (role === "authority") {
-      window.location.href = "/authority-dashboard";
+      navigate("/authority-dashboard", { replace: true });
     }
 
   } catch (error) {
@@ -60,11 +69,12 @@ function Login() {
           {/* Username */}
           <div className="field-login">
             <input
+              id="login"
               type="text"
               required
               onChange={(e) => setLogin(e.target.value)}
             />
-            <label>Email or Username</label>
+            <label htmlFor="login">Email or Username</label>
 
             {errors.login && <p className="error">{errors.login[0]}</p>}
           </div>
@@ -72,11 +82,12 @@ function Login() {
           {/* Password */}
           <div className="field-login password-field">
            <input
+              id="login-password"
               type={showPassword ? "text" : "password"}
               required
               onChange={(e) => setPassword(e.target.value)}
             />
-            <label>Password</label>
+            <label htmlFor="login-password">Password</label>
             {errors.password && <p className="error">{errors.password[0]}</p>}
 
             <span

@@ -16,6 +16,15 @@ class Citizen(models.Model):
         return self.username
 
 
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+
 class AuthorityRequest(models.Model):
 
     first_name = models.CharField(max_length=100)
@@ -26,7 +35,8 @@ class AuthorityRequest(models.Model):
 
     username = models.CharField(max_length=50, unique=True)
 
-    department = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    area = models.CharField(max_length=100)   
     employee_id = models.CharField(max_length=50)
 
     office_address = models.CharField(max_length=200)
@@ -60,7 +70,8 @@ class AuthorityRequest(models.Model):
                     email=self.email,
                     phone=self.phone,
                     username=self.username,
-                    department=self.department,
+                    category=self.category,
+                    area=self.area,
                     employee_id=self.employee_id,
                     office_address=self.office_address,
                     document=self.document,
@@ -81,7 +92,8 @@ class Authority(models.Model):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15)
     username = models.CharField(max_length=50, unique=True)
-    department = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    area = models.CharField(max_length=100)   
     employee_id = models.CharField(max_length=50)
     office_address = models.TextField()
     document = models.FileField(upload_to="authority_docs/")
@@ -95,3 +107,7 @@ class Authority(models.Model):
 
     def __str__(self):
         return self.username
+
+
+from django.db import models
+
