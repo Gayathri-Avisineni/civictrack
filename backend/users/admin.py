@@ -1,28 +1,98 @@
 from django.contrib import admin
-from .models import Category, Citizen, Authority, AuthorityRequest
 from django.utils.html import format_html
-# Register your models here.
+from django.contrib.auth.admin import UserAdmin
 
-# -------- Citizen Admin --------
-@admin.register(Citizen)
-class CitizenAdmin(admin.ModelAdmin):
-
-    list_display = ("username","email","is_online","last_login","last_logout")
+from .models import User, Category, AuthorityRequest
 
 
+# -------- USER ADMIN --------
+@admin.register(User)
+class CustomUserAdmin(UserAdmin):
+
+    list_display = (
+        "username",
+        "email",
+        "role",
+        "category",
+        "is_online",
+        "last_login",
+        "last_logout",
+        "is_staff",
+    )
+
+    list_filter = (
+        "role",
+        "is_online",
+        "category",
+        "is_staff",
+    )
+
+    search_fields = (
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+    )
+
+    ordering = ("-id",)
+
+    fieldsets = (
+        ("Login Info", {
+            "fields": (
+                "username",
+                "password",
+                "email"
+            )
+        }),
+
+        ("Personal Info", {
+            "fields": (
+                "full_name",
+                "first_name",
+                "last_name",
+                "phone",
+            )
+        }),
+
+        ("Authority Info", {
+            "fields": (
+                "category",
+                "area",
+                "employee_id",
+                "office_address",
+                "document",
+            )
+        }),
+
+        ("Status", {
+            "fields": (
+                "role",
+                "is_online",
+                "last_login",
+                "last_logout",
+                "is_active",
+                "is_staff",
+                "is_superuser",
+            )
+        }),
+
+        ("Permissions", {
+            "fields": (
+                "groups",
+                "user_permissions",
+            )
+        }),
+    )
+
+
+# -------- CATEGORY ADMIN --------
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
 
     list_display = ("name",)
 
 
-# -------- Authority Admin --------
-@admin.register(Authority)
-class AuthorityAdmin(admin.ModelAdmin):
-
-    list_display = ("username","category","is_online","last_login","last_logout")
-
-
+# -------- AUTHORITY REQUEST ADMIN --------
 @admin.register(AuthorityRequest)
 class AuthorityRequestAdmin(admin.ModelAdmin):
 
@@ -34,12 +104,21 @@ class AuthorityRequestAdmin(admin.ModelAdmin):
         "created_at"
     )
 
-    list_filter = ("status", "category")
+    list_filter = (
+        "status",
+        "category"
+    )
 
-    search_fields = ("username", "email", "employee_id")
+    search_fields = (
+        "username",
+        "email",
+        "employee_id"
+    )
 
-    ordering = ("status", "-created_at")
-
+    ordering = (
+        "status",
+        "-created_at"
+    )
 
     def colored_status(self, obj):
 
@@ -59,4 +138,3 @@ class AuthorityRequestAdmin(admin.ModelAdmin):
         )
 
     colored_status.short_description = "Status"
-

@@ -1,6 +1,6 @@
 from django.db import models
-from users.models import Category, Authority
-from django.contrib.auth.models import User
+from users.models import Category, User
+
 
 class Issue(models.Model):
 
@@ -30,12 +30,12 @@ class Issue(models.Model):
     longitude = models.FloatField()
 
     assigned_authority = models.ForeignKey(
-        Authority,
+        User,
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        limit_choices_to={"role": "authority"}
     )
-
 
     reporter_name = models.CharField(
         max_length=100,
@@ -45,7 +45,9 @@ class Issue(models.Model):
 
     reporter_email = models.EmailField()
 
-    photo = models.ImageField(upload_to="issue_photos/")
+    photo = models.ImageField(
+        upload_to="issue_photos/"
+    )
 
     status = models.CharField(
         max_length=20,
@@ -53,21 +55,44 @@ class Issue(models.Model):
         default="pending"
     )
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    supporters = models.ManyToManyField(User, blank=True, related_name="supported_issues")
+    proof = models.ImageField(
+        upload_to="issue_proofs/",
+        null=True,
+        blank=True
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    supporters = models.ManyToManyField(
+        User,
+        blank=True,
+        related_name="supported_issues"
+    )
 
     def __str__(self):
         return self.title
 
 
-
-
-
 class Comment(models.Model):
-    issue = models.ForeignKey("Issue", on_delete=models.CASCADE, related_name="comments")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    issue = models.ForeignKey(
+        Issue,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
     text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
         return self.text[:20]
