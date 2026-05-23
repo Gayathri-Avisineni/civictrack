@@ -11,7 +11,7 @@ function AllIssues() {
 
   // Fetch categories from backend
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/categories/")
+    fetch("https://civictrack-mlhg.onrender.com/api/categories/")
       .then((res) => res.json())
       .then((data) => setCategories(data))
       .catch((err) => console.error(err));
@@ -20,7 +20,7 @@ function AllIssues() {
   // Fetch issues from backend
   useEffect(() => {
   axios
-    .get("http://127.0.0.1:8000/api/issues/")
+    .get("https://civictrack-mlhg.onrender.com/api/issues/")
     .then((res) => {
       console.log("Issues fetched:", res.data);
       setIssues(res.data);

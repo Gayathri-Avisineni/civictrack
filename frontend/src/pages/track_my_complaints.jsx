@@ -20,7 +20,7 @@ function TrackMyComplaints() {
 
   const fetchMyIssues = async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:8000/api/my-issues/", {
+      const res = await axios.get("https://civictrack-mlhg.onrender.com/api/my-issues/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

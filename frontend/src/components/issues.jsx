@@ -9,7 +9,7 @@ function Issues() {
   const [issues, setIssues] = useState([]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/issues/")
+    axios.get("https://civictrack-mlhg.onrender.com/api/issues/")
       .then(res => {
         setIssues(res.data);
       })

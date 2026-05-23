@@ -93,7 +93,7 @@ export default function ProblemMap() {
   const [markers, setMarkers] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/issues/")
+    axios.get("https://civictrack-mlhg.onrender.com/api/issues/")
       .then(res => setMarkers(res.data))
       .catch(err => console.log(err));
   }, []);

@@ -36,7 +36,7 @@ function SignupAuthority() {
   // ---------------- FETCH CATEGORIES ----------------
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/categories/")
+      .get("https://civictrack-mlhg.onrender.com/api/categories/")
       .then((res) => {
         setCategories(res.data);
       })
@@ -132,7 +132,7 @@ function SignupAuthority() {
       data.append("document", document);
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/authority/signup/",
+        "https://civictrack-mlhg.onrender.com/api/authority/signup/",
         data,
         {
           headers: {

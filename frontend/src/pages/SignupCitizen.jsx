@@ -74,7 +74,7 @@ function SignupCitizen() {
 
       // signup api call
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/citizen/signup/",
+        "https://civictrack-mlhg.onrender.com/api/citizen/signup/",
         formData
       );
 

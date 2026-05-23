@@ -43,7 +43,7 @@ useState(false);
 
   useEffect(() => {
 
-  fetch("http://127.0.0.1:8000/api/categories/")
+  fetch("https://civictrack-mlhg.onrender.com/api/categories/")
     .then((res) => res.json())
     .then((data) => setCategories(data));
 
@@ -101,7 +101,7 @@ const handleSubmit = async (e) => {
   setSubmitting(true);
   try {
     // 5️⃣ Send fetch request
-    const res = await fetch("http://127.0.0.1:8000/api/report-issue/", {
+    const res = await fetch("https://civictrack-mlhg.onrender.com/api/report-issue/", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`, // ✅ Only Authorization header

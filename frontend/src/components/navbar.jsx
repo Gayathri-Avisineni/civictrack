@@ -22,7 +22,7 @@ function Navbar() {
       );
 
       await axios.post(
-        "http://127.0.0.1:8000/api/logout/",
+        "https://civictrack-mlhg.onrender.com/api/logout/",
         {
           refresh: refresh,
           user_id: user.id

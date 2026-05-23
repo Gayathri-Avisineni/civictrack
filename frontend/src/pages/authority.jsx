@@ -38,7 +38,7 @@ function Authority() {
     
     console.log("Token:", token); 
     const response = await axios.get(
-          "http://127.0.0.1:8000/api/authority/issues/",
+          "https://civictrack-mlhg.onrender.com/api/authority/issues/",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -95,7 +95,7 @@ function Authority() {
 
     try {
       await axios.patch(
-        `http://127.0.0.1:8000/api/issues/${id}/update/`,
+        `https://civictrack-mlhg.onrender.com/api/issues/${id}/update/`,
         formData,
         {
           headers: {

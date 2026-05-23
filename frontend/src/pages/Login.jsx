@@ -73,7 +73,7 @@ function Login() {
 
       const response =
         await axios.post(
-          "http://127.0.0.1:8000/api/login/",
+          "https://civictrack-mlhg.onrender.com/api/login/",
           {
             login: login.trim(),
             password: password.trim()

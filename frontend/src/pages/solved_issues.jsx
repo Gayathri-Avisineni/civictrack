@@ -15,7 +15,7 @@ function SolvedIssues() {
 
   async function fetchResolved() {
     try {
-      const res = await axios.get("http://127.0.0.1:8000/api/issues/resolved/");
+      const res = await axios.get("https://civictrack-mlhg.onrender.com/api/issues/resolved/");
       setIssues(res.data);
     } catch (err) {
       console.log(err);
