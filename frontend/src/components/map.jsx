@@ -6,6 +6,9 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { useMapEvents, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 function ClickFly() {
   const map = useMapEvents({
@@ -18,20 +21,20 @@ function ClickFly() {
 
 function Legend() {
   const map = useMap();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const legend = L.control({ position: "bottomright" });
 
     legend.onAdd = function () {
       const div = L.DomUtil.create("div", "info legend");
-      const status = ["Pending", "Rejected", "In Progress"];
-      const colors = ["red", "blue", "orange"];
 
       div.innerHTML += "<h4>Status</h4>";
-      status.forEach((s, i) => {
-        div.innerHTML +=
-          `<i style="background:${colors[i]}; width:15px; height:15px; display:inline-block; margin-right:5px;"></i>${s}<br>`;
-      });
+      div.innerHTML += `
+        <i style="background:red; width:15px; height:15px; display:inline-block; margin-right:5px;"></i> Pending <br>
+        <i style="background:orange; width:15px; height:15px; display:inline-block; margin-right:5px;"></i> In Progress <br>
+        <i style="background:green; width:15px; height:15px; display:inline-block; margin-right:5px;"></i> Resolved <br>
+      `;
 
       return div;
     };
@@ -43,13 +46,18 @@ function Legend() {
   return null;
 }
 
-const statusColors = {
-  pending: "red",
-  rejected: "blue",
-  in_progress: "orange",
-};
+
+
+
+
+    const statusColors = {
+      pending: "red",
+      in_progress: "orange",
+      resolved: "green",
+    };
 
 function createIcon(color) {
+  
   return new L.Icon({
     iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-${color}.png`,
     shadowUrl:
@@ -83,7 +91,7 @@ function FlyToMarker({ position, icon, children }) {
 
 export default function ProblemMap() {
   const [markers, setMarkers] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios.get("http://127.0.0.1:8000/api/issues/")
       .then(res => setMarkers(res.data))
@@ -104,12 +112,38 @@ export default function ProblemMap() {
           position={[issue.latitude, issue.longitude]}
           icon={createIcon(statusColors[issue.status.toLowerCase()] || "red")}
         >
-          <Popup>
-            <h4>{issue.title}</h4>
-            <p>{issue.description}</p>
-            <p>{issue.address}</p>
-            <p>Status: {issue.status}</p>
-          </Popup>
+         <Popup>
+  <div style={{ width: "180px" }}>
+    <h4 style={{ marginBottom: "5px" }}>{issue.title}</h4>
+
+    <p style={{ margin: "4px 0", fontSize: "14px" }}>{issue.description}</p>
+
+    <p style={{ margin: "4px 0", fontSize: "13px" }}>
+      <strong>Status:</strong> {issue.status}
+    </p>
+
+    <button
+      onClick={() => navigate(`/issue/${issue.id}`)}
+      style={{
+        marginTop: "8px",
+        padding: "7px 12px",
+        background: "#007bff",
+        color: "white",
+        borderRadius: "6px",
+        fontSize: "13px",
+        fontWeight: "600",
+        border: "none",
+        cursor: "pointer",
+        width: "100%",
+        transition: "0.3s",
+      }}
+      onMouseEnter={(e) => (e.target.style.background = "#0056b3")}
+      onMouseLeave={(e) => (e.target.style.background = "#007bff")}
+    >
+      View Details →
+    </button>
+  </div>
+</Popup>
         </FlyToMarker>
       ))}
 

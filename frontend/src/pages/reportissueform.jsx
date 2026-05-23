@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/reportissue.css";
 import ReportMap from "../components/reportissue"
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function ReportIssue() {
 
@@ -26,14 +28,18 @@ export default function ReportIssue() {
   const [address, setAddress] = useState("");
   const [area, setArea] = useState("");
   const [pincode, setPincode] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] =
+  useState(false);
+
+  const fileInputRef = useRef(null);
 
   const [location, setLocation] = useState({
     lat: null,
     lng: null,
     address: ""
   });
+  const [locationLoading, setLocationLoading] =
+useState(false);
 
   useEffect(() => {
 
@@ -47,90 +53,195 @@ export default function ReportIssue() {
     setPhotos([...e.target.files]);
   };
 
-  const handleSubmit = async (e) => {
 
+
+
+
+const handleSubmit = async (e) => {
   e.preventDefault();
 
+  // 1️⃣ Check if location and photo exist
   if (!location.address) {
-    alert("Please select location on map");
+    toast.error("Please select location on map");
     return;
   }
 
   if (photos.length === 0) {
-    alert("Please upload at least 1 photo");
+    toast.error("Please upload at least 1 photo");
     return;
   }
 
+  // 2️⃣ Prepare FormData
   const formData = new FormData();
+  formData.append("title", title);
+  formData.append("category", category);
+  formData.append("description", description);
+  formData.append("address", address);
+  formData.append("area", area);
+  formData.append("pincode", pincode);
+  formData.append("latitude", location.lat);
+  formData.append("longitude", location.lng);
+  formData.append("photo", photos[0]); // single photo, use loop if multiple
 
-    formData.append("title", title);
-    formData.append("category", category);
-    formData.append("description", description);
-    formData.append("address", address);
-    formData.append("area", area);
-    formData.append("pincode", pincode);
-    formData.append("latitude", location.lat);
-    formData.append("longitude", location.lng);
-    formData.append("reporter_name", name);
-    formData.append("reporter_email", email);
-    formData.append("photo", photos[0]);
-    
+  // 3️⃣ Get token
+  const token = localStorage.getItem("token");
+  if (!token) {
+    toast.error("Please login first");
+    navigate("/login");
+    return;
+  }
 
-  await fetch("http://127.0.0.1:8000/api/report-issue/", {
-    method: "POST",
-    body: formData
-  });
+  // 4️⃣ Debugging - log everything before sending
+  console.log("Token:", token);
+  console.log("FormData entries:");
+  for (let pair of formData.entries()) {
+    console.log(pair[0], pair[1]);
+  }
 
-  alert("Report Submitted Successfully");
+  setSubmitting(true);
+  try {
+    // 5️⃣ Send fetch request
+    const res = await fetch("http://127.0.0.1:8000/api/report-issue/", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`, // ✅ Only Authorization header
+        // Do NOT set 'Content-Type', fetch handles it for FormData
+      },
+      body: formData,
+    });
 
+    // 6️⃣ Handle response
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.log("❌ ERROR DATA:", errorData);
+      console.log("❌ STATUS:", res.status);
+      toast.error("Failed to submit report");
+      return;
+    }
+
+    const data = await res.json();
+    console.log("✅ Report submitted successfully:", data);
+    toast.success(
+      "Issue reported successfully!"
+    );
+
+
+
+    // Optional: clear form
+    setTitle("");
+    setCategory("");
+    setDescription("");
+    setAddress("");
+    setArea("");
+    setPincode("");
+    setPhotos([]);
+    setLocation({ lat: null, lng: null, address: "" });
+   
+
+    // clear file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    setSubmitting(false);
+
+    setTimeout(() => {
+    navigate("/track-complaints");
+  }, 1500);
+
+  } catch (error) {
+    console.log("❌ FETCH FAILED:", error);
+    setSubmitting(false);
+    toast.error(
+      "Network error"
+    );
+  }
 };
+
+
+  
 
 
 const getCurrentLocation = () => {
 
   if (navigator.geolocation) {
 
+    setLocationLoading(true);
+
     navigator.geolocation.getCurrentPosition(
 
-  async (position) => {
+      async (position) => {
 
-    const lat = position.coords.latitude;
-    const lng = position.coords.longitude;
+        try {
 
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+
+          // immediately update marker
+          setLocation({
+            lat,
+            lng,
+            address: "Fetching address..."
+          });
+
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+          );
+
+          const data = await res.json();
+
+          setLocation({
+            lat,
+            lng,
+            address: data.display_name
+          });
+
+          setAddress(
+            data.address.road ||
+            data.display_name
+          );
+
+          setArea(
+            data.address.village ||
+            data.address.town ||
+            data.address.city ||
+            ""
+          );
+
+          setPincode(
+            data.address.postcode || ""
+          );
+
+        } catch (error) {
+          toast.error(
+            "Failed to fetch location"
+          );
+        } finally {
+          setLocationLoading(false);
+        }
+      },
+
+      () => {
+        setLocationLoading(false);
+        toast.error(
+          "Location permission required"
+        );
+      },
+
+      
+       {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0
+        }
+      
+
     );
 
-    const data = await res.json();
-
-    setLocation({
-      lat: lat,
-      lng: lng,
-      address: data.display_name
-    });
-
-    setAddress(data.address.road || data.display_name);
-    setArea(data.address.village || data.address.town || data.address.city || "");
-    setPincode(data.address.postcode || "");
-
-  },
-
-  (error) => {
-    alert("Location permission required");
-  },
-
-  {
-    enableHighAccuracy: true
-  }
-
-);
-
   } else {
-
-    alert("Geolocation is not supported by this browser.");
-
+    toast.error(
+      "Geolocation not supported"
+    );
   }
-
 };
   
 
@@ -227,10 +338,13 @@ const getCurrentLocation = () => {
               type="button"
               onClick={getCurrentLocation}
               className="location-btn"
+              disabled={locationLoading}
             >
-              📍 Use My Current Location
+              {locationLoading
+                ? "Fetching Location..."
+                : "📍 Use My Current Location"}
             </button>
-            
+                        
 
             <ReportMap
               location={location}
@@ -264,35 +378,33 @@ const getCurrentLocation = () => {
               multiple
               accept="image/*"
               onChange={handlePhotoUpload}
+              ref={fileInputRef}
             />
+
+            {photos.length > 0 && (
+                <div className="preview-container">
+                  {photos.map((photo, index) => (
+                    <img
+                      key={index}
+                      src={URL.createObjectURL(photo)}
+                      alt="preview"
+                      className="preview-image"
+                    />
+                  ))}
+                </div>
+              )}
 
           </div>
 
-          {/* Reporter */}
 
-          <div className="section">
-
-            <h2>Reporter Information</h2>
-
-            <input
-              type="text"
-              placeholder="Name (Optional)"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />  
-
-          </div>
-
-          <button className="submit-btn">
-            Submit Report
+          
+          <button
+            className="issue-submit-btn"
+            disabled={submitting}
+          >
+            {submitting
+              ? "Submitting..."
+              : "Submit Report"}
           </button>
 
         </form>

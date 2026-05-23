@@ -18,6 +18,16 @@ function Hero() {
 
   };
 
+    const handleTrackComplaints = () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      navigate("/track-my-complaints");
+    } else {
+      navigate("/login", { state: { from: "/track-my-complaints" } });
+    }
+  };
+
   return (
     <div className="hero">
 
@@ -36,9 +46,10 @@ function Hero() {
           Report an Issue
         </button>
 
-        <button className="track-btn">
-          Track Your Complaints
+         <button className="track-btn" onClick={handleTrackComplaints}>
+          Track My Complaints
         </button>
+        
 
       </div>
 

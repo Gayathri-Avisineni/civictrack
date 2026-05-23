@@ -38,7 +38,7 @@ function Issues() {
 
 
         {issues.map((issue) => (
-          <div className="card" key={issue.id}
+          <div className="issue-card" key={issue.id}
           onClick={() => navigate(`/issue/${issue.id}`)}
           style={{ cursor: "pointer" }}
 
@@ -49,15 +49,15 @@ function Issues() {
               alt="issue" 
             />
 
-            <div className="card-body">
+            <div className="issue-card-body">
 
               <div>
                 <h3>{issue.title}</h3>
-                <p className="address">{issue.address}</p>
+                <p className="issue-address">{issue.address}</p>
               </div>
 
-              <div className="bottom-row">
-                <p className="time">{getTimeAgo(issue.created_at)}</p>
+              <div className="issue-bottom-row">
+                <p className="issue-time">{getTimeAgo(issue.created_at)}</p>
 
                 <span className={`status ${issue.status}`}>
                   {issue.status}

@@ -1,0 +1,189 @@
+.issues-page {
+  padding: 40px;
+  max-width: 1250px;
+  margin: auto;
+}
+
+.issues-title {
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+/* FILTER ROW */
+.filters-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+/* STATUS CHIPS WITH COLORS ALWAYS */
+.status-chip {
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-weight: 600;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.status-chip.all { background: #3b82f6; }
+.status-chip.pending { background: #ef4444; }
+.status-chip.progress { background: #facc15; color: black; }
+.status-chip.resolved { background: #22c55e; }
+
+
+/* Selected status chip */
+.status-chip.active {
+  transform: scale(1.1);
+  box-shadow: 0px 4px 14px rgba(0,0,0,0.3);
+  border: 2px solid white; /* or pick a color that matches your theme */
+}
+
+/* Optional: colored border for better distinction */
+.status-chip.pending.active {
+  border: 2px solid #b91c1c; /* darker red */
+}
+
+.status-chip.progress.active {
+  border: 2px solid #ca8a04; /* darker yellow/orange */
+}
+
+.status-chip.resolved.active {
+  border: 2px solid #15803d; /* darker green */
+}
+
+/* CATEGORY CHIPS */
+.category-chip {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: #eee;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: 0.25s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.category-chip.selected {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+/* GRID */
+.issues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+/* CARD */
+.issue-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  transition: 0.3s;
+}
+
+.issue-card:hover {
+  transform: translateY(-6px);
+}
+
+/* STATUS BADGE */
+.status-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 7px 14px;
+  border-radius: 40px;
+  font-size: 12px;
+  color: white;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.status-badge.pending { background: #ef4444; }
+.status-badge.in_progress { background: #facc15; color: black; }
+.status-badge.resolved { background: #22c55e; }
+
+/* IMAGE */
+.issue-img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+/* CATEGORY COLOR STRIP */
+.category-strip {
+  height: 6px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+}
+
+.category-strip.Water { background: #3b82f6; }
+.category-strip.Roads { background: #8b5cf6; }
+.category-strip.Electricity { background: #f59e0b; }
+.category-strip.Garbage { background: #10b981; }
+
+/* CONTENT */
+.issue-content {
+  padding: 18px;
+}
+
+.issue-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.issue-desc {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+/* FOOTER */
+.issue-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.view-btn {
+  text-decoration: none;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.no-data {
+  text-align: center;
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+
+.category-chip {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: #eee;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: 0.25s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.category-chip.selected {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}

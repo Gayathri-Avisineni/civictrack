@@ -231,3 +231,57 @@
   }
 }
 
+
+
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-left: 4px;
+}
+
+
+
+
+.authority-field {
+  position: relative;
+}
+
+.authority-field label {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: gray;
+  font-size: 13px;
+  background: white;
+  padding: 0 4px;
+  transition: 0.3s ease;
+  pointer-events: auto;
+  cursor: text;
+}
+
+/* Floating label */
+.authority-field input:focus + label,
+.authority-field input:not(:placeholder-shown) + label,
+.authority-field select:focus + label,
+.authority-field select:valid + label {
+  top: -8px;
+  font-size: 11px;
+  color: #008000;
+}
+
+
+
+.toggle {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.toggle:hover {
+  color: #008000;
+}

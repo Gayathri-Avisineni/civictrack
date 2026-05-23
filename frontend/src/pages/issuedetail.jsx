@@ -4,10 +4,10 @@ import API from "../api";   // ✅ use axios instance
 import "../css/issuedetail.css";
 import IssueMap from "../components/issuedetailmap";
 
+
 function IssueDetails() {
 
   const { id } = useParams();
-
   const [issue, setIssue] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -110,7 +110,7 @@ API.post(
           {/* IMAGE */}
           <img
             src={issue.photo}
-            className="issue-img"
+            className="issue-detail-img"
             alt="issue"
           />
 
