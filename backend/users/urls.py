@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CategoryListView, citizen_signup, authority_signup, login_user, logout_user
+from .views import CategoryListView, citizen_signup, authority_signup, db_check, login_user, logout_user
 
 
 urlpatterns = [
@@ -8,5 +8,6 @@ urlpatterns = [
     path("login/", login_user,name='login'),
     path("logout/", logout_user),
     path("categories/", CategoryListView.as_view(), name="categories"),
+    path("db-check/", db_check, name="db_check"),
 
 ]

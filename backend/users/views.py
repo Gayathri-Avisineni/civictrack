@@ -216,9 +216,15 @@ class CategoryListView(ListAPIView):
 
 
 
+from django.db import connection
 
 
-
+@api_view(['GET'])
+def db_check(request):
+    return Response({
+        "engine": connection.settings_dict["ENGINE"],
+        "name": connection.settings_dict["NAME"]
+    })
 
 
 
