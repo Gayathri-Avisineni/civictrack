@@ -94,6 +94,8 @@ class User(
 
     category = models.ForeignKey(Category,on_delete=models.SET_NULL,null=True,blank=True)
 
+
+
     area = models.CharField(max_length=100,blank=True,null=True)
 
     employee_id = models.CharField(max_length=50,blank=True,null=True)
@@ -194,7 +196,7 @@ class AuthorityRequest(models.Model):
                 unassigned_issues = Issue.objects.filter(
                     assigned_authority__isnull=True,
                     category=self.category,
-                    pincode=user.pincode
+                    pincode=self.pincode
                 )
 
                 # assign to new authority
